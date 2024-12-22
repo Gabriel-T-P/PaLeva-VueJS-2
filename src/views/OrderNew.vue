@@ -1,7 +1,15 @@
 <template>
   <div>
     <h1>Cadastrar Pedido</h1>
-    <v-alert v-if="message" type="info">{{ message }}</v-alert>
+    <v-alert 
+    v-for="(error, index) in message" 
+    :key="index" 
+    type="info" 
+    dismissible 
+    class="mb-2"
+  >
+    {{ error }}
+  </v-alert>
 
     <div class="container">
       <v-form v-on:submit.prevent>
@@ -50,8 +58,7 @@ export default {
 
         this.message = "Cadastrado com sucesso!";
       } catch (error) {
-        this.message = "Cadastro falhou"
-       console.log(error) 
+        this.message = error.body.errors
       }
     }
   }
