@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import OrderList from '../views/OrderList.vue'
 import OrderNew from '../views/OrderNew.vue'
+import OrderDetails from '../views/OrderDetails.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/order/new',
     name: 'new',
     component: OrderNew
+  },
+  {
+    path: '/order/:id',
+    name: 'detail',
+    component: OrderDetails
   }
 ]
 

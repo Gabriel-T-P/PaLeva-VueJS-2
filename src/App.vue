@@ -1,29 +1,21 @@
 <template>
-  <div id="app">
+  <v-app>
     <Menu/>
-    <router-view/>
-  </div>
+    
+    <v-container class="text-center">
+      <router-view/>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
 
-import Menu from './components/Menu.vue'
+import Menu from '../src/components/Menu.vue'
 
 export default {
   name: 'App',
   components:{
     Menu
   }
-} 
-
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-</style>

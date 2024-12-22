@@ -1,10 +1,20 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/orders">Pedidos</router-link> |
-    <router-link to="/order/new">Cadastrar Pedido</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <v-container>
+    <v-row>
+      <v-col>
+        <v-toolbar color="grey lighten-4">
+          <v-toolbar-title>PaLevá</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <nav>
+           <v-btn text color="grey" to="/"> Home </v-btn>
+           <v-btn text color="grey" to="/orders"> Pedidos </v-btn>
+           <v-btn text color="grey" to="/order/new"> Cadastrar Pedido </v-btn>
+           <v-btn text color="grey" to="/about"> About </v-btn>
+          </nav>
+        </v-toolbar>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

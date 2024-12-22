@@ -1,4 +1,4 @@
-# paleva-vue2
+# PaLeva-VueJS-2
 
 ## Project setup
 ```
@@ -17,4 +17,4 @@ yarn build
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-# PaLeva-VueJS-2
+

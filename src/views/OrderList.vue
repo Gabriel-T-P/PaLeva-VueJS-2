@@ -3,19 +3,15 @@
   <div>
     <h1>Lista de Pedidos</h1>
 
-    <input class="form" v-model="search" type="text" placeholder="Buscar Pedido">
+    <v-text-field class="my-5" v-model="search" label="Buscar Pedido pelo Código" outlined></v-text-field>
 
-    <div v-for="o in filterOrder" :key="o.id">
-      <Order
-        :id = "o.id"
-        :name = "o.name"
-        :code = "o.code"
-        :phone_number = "o.phone_number"
-        :email = "o.email"
-        :status = "o.status"
-        :final_value = "o.final_value"
-      />
-    </div>
+    <v-card>
+      <v-card-title class="text-h5 font-weight-bold">Lista de Pedidos</v-card-title>
+      <v-divider></v-divider>
+      <v-card-text>
+        <OrderTable :orders="filterOrder"/>
+      </v-card-text>
+    </v-card>
 
   </div>
 
@@ -24,12 +20,14 @@
 <script>
 
 // importando compoentes
-import Order from '../components/Order.vue'
+import Order from '../components/Order.vue';
+import OrderTable from '../components/OrderTable.vue';
 
 export default {
   name: 'OrderList',
   components:{
-    Order
+    Order,
+    OrderTable
   },
 
   data(){

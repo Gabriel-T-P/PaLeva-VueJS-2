@@ -1,35 +1,22 @@
 <template>
   <div>
     <h1>Cadastrar Pedido</h1>
-
-    <div>{{ message }}</div>
+    <v-alert v-if="message" type="info">{{ message }}</v-alert>
 
     <div class="container">
-      <form v-on:submit.prevent>
-        <div class="form">
-          <label>Nome: </label>
-          <input type="text" v-model="form.name" placeholder="Nome do comprador">
-        </div>
+      <v-form v-on:submit.prevent>
 
-        <div class="form">
-          <label>E-mail: </label>
-          <input type="email" v-model="form.email" placeholder="E-mail do comprador">
-        </div>
+        <v-text-field outlined label="Nome" v-model="form.name" placeholder="Nome do comprador"> </v-text-field>
 
-        <div class="form">
-          <label>Número de telefone: </label>
-          <input type="text" v-model="form.phone_number" placeholder="Número de telefone do comprador">
-        </div>
+        <v-text-field outlined type="email" label="E-mail" v-model="form.email" placeholder="E-mail do comprador"> </v-text-field>
 
-        <div class="form">
-          <label>CPF: </label>
-          <input type="text" v-model="form.cpf" placeholder="CPF do comprador">
-        </div>
+        <v-text-field outlined label="Número de Telefone" v-model="form.phone_number" placeholder="Número de telefone do comprador"> </v-text-field>
 
-        <div class="form">
-          <button v-on:click="postOrder">Cadastrar</button>
-        </div>
-      </form>
+        <v-text-field outlined label="CPF" v-model="form.cpf" placeholder="CPF do comprador"> </v-text-field>
+
+        <v-btn color="grey lighten-3" v-on:click="postOrder">Cadastrar</v-btn>
+
+      </v-form>
     </div>
   </div>
 </template>
