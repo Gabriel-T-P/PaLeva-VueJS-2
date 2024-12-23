@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <v-alert v-if="message" type="error" dismissible class="mb-2">{{ message }}</v-alert>
     <v-card class="pa-5">
       <v-card-title class="text-h4 font-weight-bold">Detalhes do Pedido</v-card-title>
       <v-divider></v-divider>
@@ -53,7 +54,7 @@
           <v-card flat>
             <v-card-title class="text-h6 font-weight-bold">Status do Pedido</v-card-title>
             <v-card-subtitle>
-              <v-chip dark>{{ getStatusDescription(order.status) }}</v-chip>
+              <v-chip info>{{ getStatusDescription(order.status) }}</v-chip>
             </v-card-subtitle>
           </v-card>
         </v-col>
@@ -78,6 +79,20 @@
         </v-col>
       </v-row>
     </v-card>
+    <v-btn dark x-large v-if="order.status === 'waiting_cook_confirmation'" v-on:click="setCooking" class="mt-5">Marcar em Preparo</v-btn>
+    <v-btn dark x-large v-if="order.status === 'cooking'" v-on:click="setReady" class="mt-5">Marcar Pronto</v-btn>
+    <v-divider class="my-4"></v-divider>
+    <div v-if="order.status === 'canceled'">
+      <div v-if="cancelReason.length >= 3">
+        <p> <strong>Motivo do Cancelamento:</strong> {{ cancelReason }} </p>
+      </div>
+    </div>
+    <v-row v-if="['cooking', 'waiting_cook_confirmation'].includes(order.status)">
+      <v-col class="d-flex align-baseline">
+        <v-btn dark x-large v-on:click="setCanceled" class="mr-5">Marcar como Cancelado</v-btn>
+        <v-text-field clearable outlined v-model="cancelReason" placeholder="Motivo do Cancelamento"></v-text-field>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -90,6 +105,7 @@ export default {
     return{
       order: {},
       customer: {},
+      message: null,
       cancelReason: null
     }
   },
@@ -128,11 +144,44 @@ export default {
           if (data.order.cancel_reason) {
             this.cancelReason = data.order.cancel_reason;
           } else {
-            this.cancelReason = ' '
+            this.cancelReason = ' ';
           }
         }
       } catch (error) {
-        alert('Pedido não encontrado.');
+        this.message = "Pedido não encontrado.";
+      }
+    },
+
+    async setCooking() {
+      // Faz uma requisição patch para marcar como em preparo
+      const response = await this.$http.patch(`http://localhost:3000/api/v1/orders/${this.$route.params.id}/set_status_cooking`);
+
+      if (response.ok) {
+        window.location.reload();
+      } else {
+        this.message = "Erro ao atualizar o pedido"; 
+      }
+    },
+
+    async setReady() {
+      // Faz uma requisição patch para marcar pedido como pronto
+      const response = await this.$http.patch(`http://localhost:3000/api/v1/orders/${this.$route.params.id}/set_status_ready`)
+
+      if (response.ok) {
+        window.location.reload();
+      } else {
+        this.message = "Erro ao atualizar o pedido";
+      }
+    },
+
+    async setCanceled() {
+      // Faz uma requisição patch para marcar pedido como cancelado
+      const response = await this.$http.patch(`http://localhost:3000/api/v1/${this.order.establishmentCode}/${this.order.code}/orders/${this.$route.params.id}/set_status_canceled?cancel_reason=${this.cancelReason}`)
+
+      if (response.ok) {
+        window.location.reload();
+      } else {
+        this.message = "Erro ao atualizar o pedido"; 
       }
     },
 

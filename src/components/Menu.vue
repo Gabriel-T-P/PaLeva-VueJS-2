@@ -6,10 +6,8 @@
           <v-toolbar-title>PaLevá</v-toolbar-title>
           <v-spacer></v-spacer>
           <nav>
-           <v-btn text color="grey" to="/"> Home </v-btn>
-           <v-btn text color="grey" to="/orders"> Pedidos </v-btn>
+           <v-btn text color="grey" to="/"> Pedidos </v-btn>
            <v-btn text color="grey" to="/order/new"> Cadastrar Pedido </v-btn>
-           <v-btn text color="grey" to="/about"> About </v-btn>
           </nav>
         </v-toolbar>
       </v-col>

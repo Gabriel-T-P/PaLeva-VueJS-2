@@ -10,7 +10,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'home',
     component: HomeView
   },
@@ -20,7 +20,7 @@ const routes = [
     component: AboutView
   },
   {
-    path: '/orders',
+    path: '/',
     name: 'orders',
     component: OrderList
   },
